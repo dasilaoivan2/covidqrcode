@@ -36,7 +36,7 @@
 
 
         <div class="qr">
-            <div class="inline-block py-1 px-1">
+            <div class="inline-block">
 
                 <img src="data:image/png;base64, {!!base64_encode(QrCode::eyeColor(0, 255, 165, 0, 0, 0, 0)->size(100)->format('png')->merge(asset('storage/seal1917.png'), .3, true)->errorCorrection('H')->generate('Fullname:'.$patient->fullname())) !!} ">
 
