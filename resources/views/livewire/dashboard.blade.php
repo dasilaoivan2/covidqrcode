@@ -9,7 +9,7 @@
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             {{--                <x-jet-welcome />--}}
             <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                You are Login!
+                You are Logged in!
             </div>
         </div>
     </div>
