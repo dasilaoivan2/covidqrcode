@@ -1,5 +1,5 @@
 <x-jet-dialog-modal maxWidth="lg">
-    <x-slot name="title">Add Vaccinator</x-slot>
+    <x-slot name="title">Add Region</x-slot>
 
     <x-slot name="content">
         <form>

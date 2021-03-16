@@ -37,7 +37,7 @@
                     <thead>
                     <tr class="bg-gray-100">
                         <th class="px-4 py-2 w-20">No.</th>
-                        <th class="px-4 py-2 w-20">DB ID</th>
+                        <th class="px-4 py-2 w-20">Reference ID</th>
                         <th class="px-4 py-2">Fullname</th>
                         <th class="px-4 py-2">Barangay</th>
                         <th width="260px" class="px-4 py-2">Action</th>
@@ -50,7 +50,7 @@
                         <tr>
                             <?php $temp++;?>
                             <td class="border px-4 py-2">{{$temp}}</td>
-                            <td class="border px-4 py-2">{{ $patient->id}}</td>
+                            <td class="border px-4 py-2">{{ $patient->reference_no}}</td>
                             <td class="border px-4 py-2">{{ $patient->fullname() }}</td>
                             <td class="border px-4 py-2">{{ $patient->barangay->name }}</td>
                             <td class="border px-4 py-2">

@@ -56,7 +56,14 @@ class Patient extends Model
         'first_dose',
         'second_dose',
         'user_id',
-        'question_id'];
+        'question_id',
+        'sec_date_vaccinated',
+        'sec_time_vaccinated',
+        'sec_vaccine_manufacturer',
+        'sec_batch_no',
+        'sec_lot_no',
+        'sec_vaccinator_id',
+        'reference_no'];
 
     public function barangay(){
         return $this->belongsTo('App\Models\Barangay');

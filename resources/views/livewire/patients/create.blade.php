@@ -535,8 +535,10 @@
 
             <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-2 py-2 bg-gray-200 sm:p-6">
+                    <b><h4>For First Dose</h4></b>
+                    <br>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                        <div class="mb-4 form-check">
+                        <div class="mb-4 form-check col-span-3">
                             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">DEFERRAL</label>
 
                             <input type="text"
@@ -623,6 +625,112 @@
 
                             @error('first_dose') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
+
+                        {{--<div class="mb-4 form-check">--}}
+                            {{--<label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Second--}}
+                                {{--Dose--}}
+                            {{--</label>--}}
+                            {{--<label class="block form-check-label">--}}
+                                {{--<input type="radio" wire:model="second_dose"--}}
+                                       {{--class="form-check-input" value="Yes"> Yes--}}
+                            {{--</label>--}}
+
+                            {{--<label class=" block form-check-label">--}}
+                                {{--<input type="radio" wire:model="second_dose"--}}
+                                       {{--class="form-check-input" value="No"> No--}}
+                            {{--</label>--}}
+
+                            {{--@error('second_dose') <span class="text-red-500">{{ $message }}</span>@enderror--}}
+                        {{--</div>--}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-2 px-3"></div>
+
+            <div class="shadow overflow-hidden sm:rounded-md">
+                <div class="px-2 py-2 bg-gray-200 sm:p-6">
+                    <b><h4>For Second Dose</h4></b>
+                    <br>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        <div class="mb-4">
+                            <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Vaccination
+                                Date</label>
+                            <input type="date"
+                                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                   id="exampleFormControlInput1" placeholder="Type Here..."
+                                   wire:model="sec_date_vaccinated">
+                            @error('sec_date_vaccinated') <span class="text-red-500">{{ $message }}</span>@enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Vaccination
+                                Time</label>
+                            <input type="time"
+                                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                   id="exampleFormControlInput1" placeholder="Type Here..."
+                                   wire:model="sec_time_vaccinated">
+                            @error('sec_time_vaccinated') <span class="text-red-500">{{ $message }}</span>@enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Vaccine
+                                Manufacturer Name</label>
+                            <input type="text"
+                                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                   id="exampleFormControlInput1" placeholder="Type Here..."
+                                   wire:model="sec_vaccine_manufacturer">
+                            @error('sec_vaccine_manufacturer') <span class="text-red-500">{{ $message }}</span>@enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Batch
+                                Number</label>
+                            <input type="text"
+                                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                   id="exampleFormControlInput1" placeholder="Type Here..." wire:model="sec_batch_no">
+                            @error('sec_batch_no') <span class="text-red-500">{{ $message }}</span>@enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Lot
+                                Number</label>
+                            <input type="text"
+                                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                   id="exampleFormControlInput1" placeholder="Type Here..." wire:model="sec_lot_no">
+                            @error('sec_lot_no') <span class="text-red-500">{{ $message }}</span>@enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="select_id" class="block text-gray-700 text-sm font-bold mb-2">*Vaccinator
+                                Name</label>
+                            <select id="select_id" wire:model="sec_vaccinator_id"
+                                    class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                                <option value="">Select...</option>
+                                @foreach($vaccinators as $vaccinator)
+                                    <option value="{{$vaccinator->id}}">{{$vaccinator->fullname()}}</option>
+                                @endforeach
+
+                            </select>
+                            @error('sec_vaccinator_id') <span class="text-red-500">{{ $message }}</span>@enderror
+                        </div>
+
+                        {{--<div class="mb-4 form-check">--}}
+                            {{--<label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">First--}}
+                                {{--Dose--}}
+                            {{--</label>--}}
+                            {{--<label class="block form-check-label">--}}
+                                {{--<input type="radio" wire:model="first_dose"--}}
+                                       {{--class="form-check-input" value="Yes"> Yes--}}
+                            {{--</label>--}}
+
+                            {{--<label class=" block form-check-label">--}}
+                                {{--<input type="radio" wire:model="first_dose"--}}
+                                       {{--class="form-check-input" value="No"> No--}}
+                            {{--</label>--}}
+
+                            {{--@error('first_dose') <span class="text-red-500">{{ $message }}</span>@enderror--}}
+                        {{--</div>--}}
 
                         <div class="mb-4 form-check">
                             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Second

@@ -38,7 +38,7 @@
         <div class="qr">
             <div class="inline-block">
 
-                <img src="data:image/png;base64, {!!base64_encode(QrCode::eyeColor(0, 255, 165, 0, 0, 0, 0)->size(100)->format('png')->merge(asset('storage/seal1917.png'), .3, true)->errorCorrection('H')->generate('Fullname:'.$patient->fullname())) !!} ">
+                <img src="data:image/png;base64, {!!base64_encode(QrCode::eyeColor(0, 255, 165, 0, 0, 0, 0)->size(100)->format('png')->merge(asset('storage/seal1917.png'), .3, true)->errorCorrection('H')->generate('Reference No.:'.$patient->reference_no.', '.'Fullname:'.$patient->fullname())) !!} ">
 
             </div>
 

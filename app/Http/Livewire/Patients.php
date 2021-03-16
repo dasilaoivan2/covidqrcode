@@ -46,9 +46,9 @@ class Patients extends Component
         $middlename,
         $suffixname,
         $contact_no,
-        $region_id,
-        $province_id,
-        $municipality_id,
+        $region_id = 1,
+        $province_id = 1,
+        $municipality_id = 1,
         $barangay_id,
         $sex,
         $birthday,
@@ -80,7 +80,14 @@ class Patients extends Component
         $lot_no,
         $vaccinator_id,
         $first_dose,
-        $second_dose;
+        $second_dose,
+        $sec_date_vaccinated,
+        $sec_time_vaccinated,
+        $sec_vaccine_manufacturer,
+        $sec_batch_no,
+        $sec_lot_no,
+        $sec_vaccinator_id,
+        $reference_no;
 
     public $print_patients;
 
@@ -102,15 +109,30 @@ class Patients extends Component
         $this->categories = Category::all();
         $this->idcards = Idcard::all();
         $this->vaccinators = Vaccinator::all();
-        $this->print_patients = Patient::all()->where('print', '==', 1)->where('user_id', '==', $user_id);
+//        $this->print_patients = Patient::all()->where('print', '==', 1)->where('user_id', '==', $user_id);
 
+        if ($user_id == 3) {
 
-        return view('livewire.patients', ['patients' => Patient::select('patients.*')->where('patients.user_id', '=', $user_id)
-            ->where('patients.lastname', 'LIKE', '%' . $this->searchToken . '%')
+            $this->print_patients = Patient::all()->where('print', '==', 1);
+
+            return view('livewire.patients', ['patients' => Patient::select('patients.*')->where('patients.lastname', 'LIKE', '%' . $this->searchToken . '%')
 //            ->orWhere('patients.firstname', 'LIKE', '%' . $this->searchToken . '%')
 //            ->orWhere('patients.middlename', 'LIKE', '%' . $this->searchToken . '%')
-            ->orderBy('id', 'DESC')
-            ->paginate(25)]);
+                ->orderBy('id', 'DESC')
+                ->paginate(25)]);
+        }
+        else {
+
+            $this->print_patients = Patient::all()->where('print', '==', 1)->where('user_id', '==', $user_id);
+
+            return view('livewire.patients', ['patients' => Patient::select('patients.*')->where('patients.user_id', '=', $user_id)
+                ->where('patients.lastname', 'LIKE', '%' . $this->searchToken . '%')
+//            ->orWhere('patients.firstname', 'LIKE', '%' . $this->searchToken . '%')
+//            ->orWhere('patients.middlename', 'LIKE', '%' . $this->searchToken . '%')
+                ->orderBy('id', 'DESC')
+                ->paginate(25)]);
+        }
+
     }
 
     public function create()
@@ -131,9 +153,9 @@ class Patients extends Component
         $this->middlename = '';
         $this->suffixname = '';
         $this->contact_no = '';
-        $this->region_id = '';
-        $this->province_id = '';
-        $this->municipality_id = '';
+//        $this->region_id = '';
+//        $this->province_id = '';
+//        $this->municipality_id = '';
         $this->barangay_id = '';
         $this->sex = '';
         $this->birthday = '';
@@ -158,8 +180,8 @@ class Patients extends Component
         $this->if_terminal_illness = '';
         $this->present_clearance = '';
         $this->deferral = '';
-        $this->date_vaccinated = '';
-        $this->time_vaccinated = '';
+        $this->date_vaccinated = null;
+        $this->time_vaccinated = null;
         $this->vaccine_manufacturer = '';
         $this->batch_no = '';
         $this->lot_no = '';
@@ -169,6 +191,12 @@ class Patients extends Component
         $this->confirming = '';
         $this->patient_id = '';
         $this->question_id = '';
+        $this->sec_date_vaccinated = null;
+        $this->sec_time_vaccinated = null;
+        $this->sec_vaccine_manufacturer = '';
+        $this->sec_batch_no = '';
+        $this->sec_lot_no = '';
+        $this->sec_vaccinator_id = '';
     }
 
     public function openCreate()
@@ -179,6 +207,38 @@ class Patients extends Component
     public function closeCreate()
     {
         $this->isCreate = false;
+    }
+
+    private function generatecode()
+    {
+        $user_id = Auth::user()->id;
+        $year = date('Y');
+        $count = Patient::all()->count();
+        $temp = $count + 1;
+
+        if($count==0){
+            $trailing ="000";
+            $count = 1;
+        }
+
+        if($count<10 && $count>0){
+            $trailing ="000";
+
+        }
+
+        if($count<100 && $count>10){
+            $trailing ="00";
+        }
+
+        if($count<1000 && $count>100){
+            $trailing ="0";
+        }
+
+        if($count>=1000){
+            $trailing ="";
+        }
+        return $year."-".$trailing.$temp."-".$user_id;
+
     }
 
     public function store()
@@ -232,7 +292,11 @@ class Patients extends Component
 
         ]);
 
+
+
         $user_id = Auth::user()->id;
+
+
 
         $question = Question::updateOrCreate(['id' => $this->question_id], [
             'more_sixteenyrs' => $this->more_sixteen,
@@ -303,7 +367,14 @@ class Patients extends Component
             'vaccinator_id' => $this->vaccinator_id,
             'first_dose' => $this->first_dose,
             'second_dose' => $this->second_dose,
-            'user_id' => $user_id,
+            'sec_date_vaccinated' => $this->sec_date_vaccinated,
+            'sec_time_vaccinated' => $this->sec_time_vaccinated,
+            'sec_vaccine_manufacturer' => $this->sec_vaccine_manufacturer,
+            'sec_batch_no' => $this->sec_batch_no,
+            'sec_lot_no' => $this->sec_lot_no,
+            'sec_vaccinator_id' => $this->sec_vaccinator_id,
+            'reference_no' => $this->generatecode(),
+            'user_id' => $user_id
         ]);
 
         session()->flash('message',
@@ -367,6 +438,12 @@ class Patients extends Component
         $this->vaccinator_id = $patient->vaccinator_id;
         $this->first_dose = $patient->first_dose;
         $this->second_dose = $patient->second_dose;
+        $this->sec_date_vaccinated = $patient->sec_date_vaccinated;
+        $this->sec_time_vaccinated = $patient->sec_time_vaccinated;
+        $this->sec_vaccine_manufacturer = $patient->sec_vaccine_manufacturer;
+        $this->sec_batch_no = $patient->sec_batch_no;
+        $this->sec_lot_no = $patient->sec_lot_no;
+        $this->sec_vaccinator_id = $patient->sec_vaccinator_id;
 
 
         $this->confirming = '';
@@ -401,6 +478,8 @@ class Patients extends Component
 
     public function kill($id)
     {
+        $user_id = Auth::user()->id;
+
         $patient = Patient::find($id);
 
         $ques_id = $patient->question_id;
@@ -418,10 +497,9 @@ class Patients extends Component
 
         $patients = Patient::all()->where('user_id', '==', $user_id);
 
-        foreach ($patients as $patient)
-        {
-        $patient->print = 0;
-        $patient->save();
+        foreach ($patients as $patient) {
+            $patient->print = 0;
+            $patient->save();
         }
     }
 

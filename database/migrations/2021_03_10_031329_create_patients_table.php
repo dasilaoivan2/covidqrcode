@@ -44,11 +44,18 @@ class CreatePatientsTable extends Migration
             $table->foreignId('vaccinator_id')->nullable();
             $table->text('first_dose')->nullable();
             $table->text('second_dose')->nullable();
+            $table->date('sec_date_vaccinated')->nullable();
+            $table->time('sec_time_vaccinated')->nullable();
+            $table->text('sec_vaccine_manufacturer')->nullable();
+            $table->text('sec_batch_no')->nullable();
+            $table->text('sec_lot_no')->nullable();
+            $table->foreignId('sec_vaccinator_id')->nullable();
 //            $table->time('time_vaccinated');
 //            $table->date('date_vaccinated');
 //            $table->text('vaccine_type');
             $table->boolean('print')->default(1);
             $table->foreignId('user_id');
+            $table->text('reference_no');
 //            $table->foreignId('civilstatus_id');
 //            $table->foreignId('employmentstatus_id');
 //            $table->foreignId('profession_id');
